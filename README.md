@@ -97,6 +97,11 @@ Start the webapp
 
     python human-feedback-api/manage.py runserver 0.0.0.0:8000
 
+Start flask  server
+
+    python human-feedback-api/video_server/run_server.py
+
+
 You should now be able to open the webapp by navigating to http://127.0.0.1:8000/ in any browser. There’s nothing there yet, but when you run your agent, it will create an experiment that will let you add labels.
 
 #### Create a GCS bucket to store rendered trajectory segments
