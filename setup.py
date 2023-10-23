@@ -10,18 +10,19 @@ setup(name='rl_teacher',
     version='0.0.1',
     install_requires=[
         'mujoco-py ~=0.5.7',
-        'gym[mujoco]',
+        'gym[mujoco]==0.9.2',
+        'pillow<=8.0',
         'tqdm',
         'matplotlib',
         'ipython',
         'scipy',
         'ipdb',
-        'keras',
+        'keras==2.0.8',
         'netifaces'
     ],
     # https://github.com/tensorflow/tensorflow/issues/7166#issuecomment-280881808
     extras_require={
-        "tf": ["tensorflow ~= 1.2"],
+        "tf": ["tensorflow == 1.2"],
         "tf_gpu": ["tensorflow-gpu >= 1.1"],
     }
 )

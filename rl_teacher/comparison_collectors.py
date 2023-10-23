@@ -55,8 +55,12 @@ def _write_and_upload_video(env_id, local_path, segment):
     write_segment_to_video(segment, fname=local_path, env=env)
     # upload_to_gcs(local_path, gcs_path)
 def get_ip():
-    ni.ifaddresses('eth0')
-    ip = ni.ifaddresses('eth0')[ni.AF_INET][0]['addr']
+    try:
+        ni.ifaddresses('eno1')
+        ip = ni.ifaddresses('eno1')[ni.AF_INET][0]['addr']
+    except:
+        print("Please check your network interface by `ip addr` and replace eno1 with your interface name!")
+        exit(-1)
     return ip
 class HumanComparisonCollector():
     def __init__(self, env_id, experiment_name):
