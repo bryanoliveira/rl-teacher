@@ -1,5 +1,5 @@
 import argparse
-import time
+import datetime
 
 from parallel_trpo.train import train_parallel_trpo
 
@@ -21,7 +21,7 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     env_id = args.env_id
-    run_name = "%s/%s-%s" % (env_id, args.run_name, int(time.time()))
+    run_name = "%s/%s-%s" % (env_id, args.run_name, datetime.datetime.now().strftime('%Y%m%d_%H%M%S'))
 
     summary_writer = make_summary_writer(run_name)
 

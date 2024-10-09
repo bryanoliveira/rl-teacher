@@ -38,6 +38,8 @@ Obtain a license for [MuJoCo](https://www.roboti.us/license.html) and install th
 
 Set up a fresh `conda` environment that uses python 3.5.
 
+Install mpi4py with conda: `conda install -c conda-forge mpi4py`
+
 Clone the `rl-teacher` repository anywhere you'd like. (For example, in `~/rl-teacher`).
 
 Then run the following to install the rl-teacher code into your conda environment:

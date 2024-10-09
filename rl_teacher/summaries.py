@@ -8,7 +8,7 @@ import tensorflow as tf
 CLIP_LENGTH = 1.5
 
 def make_summary_writer(name):
-    logs_path = osp.expanduser('~/tb/rl-teacher/%s' % (name))
+    logs_path = osp.abspath('./logs/%s' % (name))
     return tf.summary.FileWriter(logs_path)
 
 def add_simple_summary(summary_writer, tag, simple_value, step):
