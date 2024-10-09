@@ -54,14 +54,7 @@ def _write_and_upload_video(env_id, local_path, segment):
     env = make_with_torque_removed(env_id)
     write_segment_to_video(segment, fname=local_path, env=env)
     # upload_to_gcs(local_path, gcs_path)
-def get_ip():
-    try:
-        ni.ifaddresses('eno1')
-        ip = ni.ifaddresses('eno1')[ni.AF_INET][0]['addr']
-    except:
-        print("Please check your network interface by `ip addr` and replace eno1 with your interface name!")
-        exit(-1)
-    return ip
+
 class HumanComparisonCollector():
     def __init__(self, env_id, experiment_name):
         from human_feedback_api import Comparison
@@ -79,9 +72,10 @@ class HumanComparisonCollector():
         media_id = "%s-%s.mp4" % (comparison_uuid, side)
         local_path = osp.join(tmp_media_dir, media_id)
         self._upload_workers.apply_async(_write_and_upload_video, (self.env_id, local_path, segment))
-        local_ip=get_ip()
 
-        media_url = "http://%s:5000/%s" % (local_ip,media_id)
+        host = os.getenv("TEACHER_SERVER_HOST", "0.0.0.0")
+        port = os.getenv("TEACHER_VIDEO_REMOTE_PORT", "8001")
+        media_url = "http://%s:%s/%s" % (host, port, media_id)
         return media_url
 
     def _create_comparison_in_webapp(self, left_seg, right_seg):

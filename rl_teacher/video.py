@@ -32,6 +32,13 @@ class SegmentVideoRecorder(object):
 def write_segment_to_video(segment, fname, env):
     os.makedirs(osp.dirname(fname), exist_ok=True)
     frames = [env.render_full_obs(x) for x in segment["human_obs"]]
+    frames = [frame for frame in frames if not np.all(frame == 0)]
+
+    # Ensure we have at least one frame
+    if not frames:
+        print("Warning: All frames were black. Keeping the first frame to avoid empty video.")
+        frames = [env.render_full_obs(segment["human_obs"][0])]
+
     for i in range(int(env.fps * 0.2)):
         frames.append(frames[-1])
     export_video(frames, fname, fps=env.fps)
