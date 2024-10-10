@@ -72,10 +72,7 @@ class HumanComparisonCollector():
         media_id = "%s-%s.mp4" % (comparison_uuid, side)
         local_path = osp.join(tmp_media_dir, media_id)
         self._upload_workers.apply_async(_write_and_upload_video, (self.env_id, local_path, segment))
-
-        host = os.getenv("TEACHER_SERVER_HOST", "0.0.0.0")
-        port = os.getenv("TEACHER_VIDEO_REMOTE_PORT", "8001")
-        media_url = "http://%s:%s/%s" % (host, port, media_id)
+        media_url = "/media/%s" % media_id
         return media_url
 
     def _create_comparison_in_webapp(self, left_seg, right_seg):

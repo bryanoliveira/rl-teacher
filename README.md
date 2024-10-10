@@ -50,6 +50,16 @@ Then run the following to install the rl-teacher code into your conda environmen
     pip install -e agents/parallel-trpo[tf]
     pip install -e agents/pposgd-mpi[tf]
 
+### Docker
+
+You can also run `rl-teacher` using Docker. This is the easiest way to get started.
+
+```bash
+docker build -t rl-teacher .
+# docker run -p <host tensorboard port>:6006 -p <host webapp port>:8000 rl-teacher -- <experiment arguments>
+docker run -p 6006:6006 -p 8000:8000 rl-teacher -- -p human --pretrain_labels 50 -e Hopper-v1 -n hopper-flip
+```
+
 # Usage
 ## Baseline RL
 
@@ -98,11 +108,6 @@ First you'll need to set up django. This will create a `db.sqlite3` in your loca
 Start the webapp
 
     python human-feedback-api/manage.py runserver 0.0.0.0:8000
-
-Start flask  server
-
-    python human-feedback-api/video_server/run_server.py
-
 
 You should now be able to open the webapp by navigating to http://127.0.0.1:8000/ in any browser. There’s nothing there yet, but when you run your agent, it will create an experiment that will let you add labels.
 
