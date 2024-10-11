@@ -1,4 +1,5 @@
 logs/
 data/
 Dockerfile
-db.sqlite3
+.dockerignore
+*.sqlite3

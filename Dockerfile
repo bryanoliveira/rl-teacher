@@ -66,8 +66,8 @@ RUN pip install --no-cache-dir -e . && \
 
 ENV DISPLAY=:0
 
-RUN python human-feedback-api/manage.py migrate && \
-    python human-feedback-api/manage.py collectstatic
+RUN python human-feedback-api/manage.py migrate --noinput && \
+    python human-feedback-api/manage.py collectstatic --noinput
 
 ENTRYPOINT ["sh", "-c", "Xvfb :0 -screen 0 1024x768x16 & sleep 3 && \
     tensorboard --logdir=./logs --port=6006 & sleep 1 && \
