@@ -57,6 +57,7 @@ RUN mkdir /root/.mujoco && \
 
 COPY . /app
 WORKDIR /app
+RUN chown -R root:root .
 
 RUN pip install --no-cache-dir -e . && \
     pip install --no-cache-dir -e human-feedback-api && \
