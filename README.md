@@ -57,7 +57,7 @@ You can also run `rl-teacher` using Docker. This is the easiest way to get start
 ```bash
 docker build -t rl-teacher .
 # docker run -p <host tensorboard port>:6006 -p <host webapp port>:8000 rl-teacher -- <experiment arguments>
-docker run -p 6006:6006 -p 8000:8000 rl-teacher -- -p human --pretrain_labels 50 -e Hopper-v1 -n hopper-flip
+docker run -p 6006:6006 -p 8000:8000 rl-teacher -- -p human --pretrain_labels 150 -e Hopper-v1 -n hopper-flip
 ```
 
 # Usage

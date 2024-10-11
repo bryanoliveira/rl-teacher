@@ -1,3 +1,11 @@
+# docker build -t rlhf-teacher .
+# docker run \
+#   -v ./logs:/app/logs \
+#   -v ./data/media:/tmp/rl_teacher_media \
+#   -v ./human-feedback-api/db.sqlite3:/app/human-feedback-api/db.sqlite3 \
+#   -p 18081:6006 -p 18080:8000 \
+#   rlhf-teacher -- -p human --pretrain_labels 150 -e Hopper-v1 -n hopper-flip
+
 FROM python:3.5-slim
 
 ENV DEBIAN_FRONTEND=noninteractive
@@ -59,7 +67,7 @@ RUN pip install --no-cache-dir -e . && \
 ENV DISPLAY=:0
 
 ENTRYPOINT ["sh", "-c", "Xvfb :0 -screen 0 1024x768x16 & sleep 3 && \
-    python human-feedback-api/manage.py runserver 0.0.0.0:8000 & sleep 3 && \
-    tensorboard --logdir=./logs --port=6006 & sleep 3 && \
-    python rl_teacher/teach.py $@"]
-# ENTRYPOINT ["sh", "-c", "python rl_teacher/teach.py -p human --pretrain_labels 50 -e Hopper-v1 -n $@"]
+    tensorboard --logdir=./logs --port=6006 & sleep 1 && \
+    python human-feedback-api/manage.py runserver 0.0.0.0:8000 & sleep 1 && \
+    python rl_teacher/teach.py $@ && \
+    echo 'Waiting for background jobs.' && wait"]
